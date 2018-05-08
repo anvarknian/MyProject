@@ -42,17 +42,19 @@ object MyObject extends App {
   // Merging our Lists
   val combinedList = iD zip timestamp
 
-  def recursion(n: List[(Long, LocalDate)]): Unit = {
-    for (i <- 0 to combinedList.size - 2) {
-      if (n(i)._2.isAfter(n(i + 1)._2)) {
-        val result = n(i + 1)
-        print(result)
-      }
+  def myFunc(n: List[(Long, LocalDate)]): Unit = {
+    var list = List.empty[List[(Long,LocalDate)]]
+    for ( i <- 0 to n.size - 2) {
+      for (  j <- i to n.size-2)
+        if (n(i)._2.isAfter(n(j + 1)._2)) {
+          (1 to n.length) foreach (z => list = list :+ List((n(j + 1)._1, n(j + 1)._2)))
+        }
     }
+    print(list.distinct)
   }
 
 
-  println(recursion(combinedList))
+  println(myFunc(combinedList))
 
 
 }
